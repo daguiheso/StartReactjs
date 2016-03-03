@@ -2,6 +2,10 @@ var React = require('react');
 var ReactDOM = require ('react-dom');
 
 var Comida = React.createClass({
+    handleLike : function () {
+        var nombreComida = this.props.nombre;
+        alert('Comida de mi gusto : ' + nombreComida)
+    },
     render: function() {
         return (
             <div>
@@ -10,7 +14,7 @@ var Comida = React.createClass({
                     Comida <i>{this.props.children}</i>
                 </p>
                 <p>
-                    <span className="glyphicon glyphicon-heart glyphicon-heart-lg red"></span>
+                    <span onClick={this.handleLike} className="glyphicon glyphicon-heart glyphicon-heart-lg red"></span>
                 </p>
             </div>
         );

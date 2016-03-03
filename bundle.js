@@ -98,6 +98,10 @@ var ReactDOM = require('react-dom');
 var Comida = React.createClass({
     displayName: 'Comida',
 
+    handleLike: function () {
+        var nombreComida = this.props.nombre;
+        alert('Comida de mi gusto : ' + nombreComida);
+    },
     render: function () {
         return React.createElement(
             'div',
@@ -120,7 +124,7 @@ var Comida = React.createClass({
             React.createElement(
                 'p',
                 null,
-                React.createElement('span', { className: 'glyphicon glyphicon-heart glyphicon-heart-lg red' })
+                React.createElement('span', { onClick: this.handleLike, className: 'glyphicon glyphicon-heart glyphicon-heart-lg red' })
             )
         );
     }
