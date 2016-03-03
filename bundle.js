@@ -95,19 +95,55 @@ process.umask = function() { return 0; };
 var React = require('react');
 var ReactDOM = require('react-dom');
 
+var Comida = React.createClass({
+    displayName: 'Comida',
+
+    render: function () {
+        return React.createElement(
+            'div',
+            null,
+            React.createElement(
+                'h1',
+                { className: 'bg-success' },
+                this.props.nombre
+            ),
+            React.createElement(
+                'p',
+                { className: 'bg-info' },
+                'Comida ',
+                React.createElement(
+                    'i',
+                    null,
+                    this.props.children
+                )
+            ),
+            React.createElement(
+                'p',
+                null,
+                React.createElement('span', { className: 'glyphicon glyphicon-heart glyphicon-heart-lg red' })
+            )
+        );
+    }
+});
+
 ReactDOM.render(React.createElement(
-     'div',
-     null,
-     React.createElement(
-          'h1',
-          null,
-          'Hola Mundo'
-     ),
-     React.createElement(
-          'h1',
-          null,
-          'buen dia !!!!'
-     )
+    'div',
+    { className: 'centerBlock' },
+    React.createElement(
+        Comida,
+        { nombre: 'Tacos' },
+        'Mexicana'
+    ),
+    React.createElement(
+        Comida,
+        { nombre: 'Paella' },
+        'Española'
+    ),
+    React.createElement(
+        Comida,
+        { nombre: 'Ceviche' },
+        'Peruana'
+    )
 ), document.getElementById('container'));
 
 },{"react":159,"react-dom":3}],3:[function(require,module,exports){
