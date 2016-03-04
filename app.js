@@ -38,6 +38,10 @@ var ListaComida = React.createClass({
             ]
         }
     },
+    add : function () {
+        var nuevaComida = this.refs.nuevaComida.value;
+        console.log(nuevaComida)
+    },
     eachItem : function (comida, i) {
         return (
             <Comida key={i} index={i} nombre={comida}>
@@ -52,10 +56,14 @@ var ListaComida = React.createClass({
                     <h1>Mis comidas favoritas</h1>
                     <i>Total : {this.state.comidas.length}</i>
                 </header>
+                <div className="input-group">
+                    <input ref="nuevaComida" type="text" className="form-control" placeholder="Agregar nueva comida"/>
+                    <span className="input-group-btn">
+                        <div className="btn btn-default btn-success" onClick={this.add}> + </div>
+                    </span>
+                </div>
                 <div>
-                    {
-                        this.state.comidas.map(this.eachItem)
-                    }
+                    {this.state.comidas.map(this.eachItem)}
                 </div>
             </div>
         )

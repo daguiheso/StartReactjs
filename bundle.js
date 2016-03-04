@@ -149,6 +149,10 @@ var ListaComida = React.createClass({
             comidas: ['Tacos', 'Paella', 'Ceviche', 'Mole']
         };
     },
+    add: function () {
+        var nuevaComida = this.refs.nuevaComida.value;
+        console.log(nuevaComida);
+    },
     eachItem: function (comida, i) {
         return React.createElement(
             Comida,
@@ -173,6 +177,20 @@ var ListaComida = React.createClass({
                     null,
                     'Total : ',
                     this.state.comidas.length
+                )
+            ),
+            React.createElement(
+                'div',
+                { className: 'input-group' },
+                React.createElement('input', { ref: 'nuevaComida', type: 'text', className: 'form-control', placeholder: 'Agregar nueva comida' }),
+                React.createElement(
+                    'span',
+                    { className: 'input-group-btn' },
+                    React.createElement(
+                        'div',
+                        { className: 'btn btn-default btn-success', onClick: this.add },
+                        ' + '
+                    )
                 )
             ),
             React.createElement(
