@@ -14,6 +14,10 @@ var Comida = React.createClass({
     edit : function () {
         this.setState({editing : true});
     },
+    save : function () {
+        this.props.onChange(this.refs.nuevoNombre.value, this.props.index);
+        this.setState({editing : false});
+    },
     remove : function () {
         this.props.onRemove(this.props.index)
     },
@@ -24,6 +28,7 @@ var Comida = React.createClass({
         return (
             <div className="comida">
                 <input ref="nuevoNombre" type="text" className="form-control" placeholder="Nuevo nombre..." defaultValue={this.props.nombre}/>
+                <div className="glyphicon glyphicon-ok-circle blue" onClick={this.save}/>
                 <div className="glyphicon glyphicon-remove-circle red" onClick={this.cancel}/>
             </div>
         )
@@ -80,6 +85,11 @@ var ListaComida = React.createClass({
         this.setState({comidas: arr});
         this.refs.nuevaComida.value = '';
     },
+    update : function (nuevoNombre, i) {
+        var arr = this.state.comidas;
+        arr[i] = nuevoNombre;
+        this.setState({comidas: arr});
+    },
     remove : function (i) {
         var arr = this.state.comidas;
         arr.splice(i, 1);
@@ -87,7 +97,7 @@ var ListaComida = React.createClass({
     },
     eachItem : function (comida, i) {
         return (
-            <Comida key={i} index={i} nombre={comida} onRemove={this.remove}>
+            <Comida key={i} index={i} nombre={comida} onRemove={this.remove} onChange={this.update}>
                 {i+1}
             </Comida>
         )
