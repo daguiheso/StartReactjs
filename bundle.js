@@ -149,8 +149,11 @@ var ListaComida = React.createClass({
             comidas: ['Tacos', 'Paella', 'Ceviche', 'Mole']
         };
     },
-    add: function () {
+    add: function (comida) {
         var nuevaComida = this.refs.nuevaComida.value;
+        if (nuevaComida === '') {
+            if (typeof comida == 'undefined') nuevaComida = 'Nueva comida';else nuevaComida = comida;
+        }
         var arr = this.state.comidas;
         arr.push(nuevaComida);
         this.setState({ comidas: arr });
@@ -194,7 +197,7 @@ var ListaComida = React.createClass({
                     { className: 'input-group-btn' },
                     React.createElement(
                         'div',
-                        { className: 'btn btn-default btn-success', onClick: this.add },
+                        { className: 'btn btn-default btn-success', onClick: this.add.bind(null, 'Nueva comida') },
                         ' + '
                     )
                 )

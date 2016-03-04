@@ -38,8 +38,14 @@ var ListaComida = React.createClass({
             ]
         }
     },
-    add : function () {
+    add : function (comida) {
         var nuevaComida = this.refs.nuevaComida.value;
+        if (nuevaComida === '') {
+            if (typeof comida == 'undefined') 
+                nuevaComida = 'Nueva comida'
+            else 
+                nuevaComida = comida;
+        }
         var arr = this.state.comidas;
         arr.push(nuevaComida);
         this.setState({comidas: arr})
@@ -66,7 +72,7 @@ var ListaComida = React.createClass({
                 <div className="input-group">
                     <input ref="nuevaComida" type="text" onKeyPress={this.handleKeyDown} className="form-control" placeholder="Agregar nueva comida"/>
                     <span className="input-group-btn">
-                        <div className="btn btn-default btn-success" onClick={this.add}> + </div>
+                        <div className="btn btn-default btn-success" onClick={this.add.bind(null, 'Nueva comida')}> + </div>
                     </span>
                 </div>
                 <div>
