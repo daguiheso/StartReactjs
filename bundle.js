@@ -151,7 +151,10 @@ var ListaComida = React.createClass({
     },
     add: function () {
         var nuevaComida = this.refs.nuevaComida.value;
-        console.log(nuevaComida);
+        var arr = this.state.comidas;
+        arr.push(nuevaComida);
+        this.setState({ comidas: arr });
+        this.refs.nuevaComida.value = '';
     },
     eachItem: function (comida, i) {
         return React.createElement(
@@ -159,6 +162,9 @@ var ListaComida = React.createClass({
             { key: i, index: i, nombre: comida },
             i + 1
         );
+    },
+    handleKeyDown: function (e) {
+        if (e.charCode === 13) this.add();
     },
     render: function () {
         return React.createElement(
@@ -182,7 +188,7 @@ var ListaComida = React.createClass({
             React.createElement(
                 'div',
                 { className: 'input-group' },
-                React.createElement('input', { ref: 'nuevaComida', type: 'text', className: 'form-control', placeholder: 'Agregar nueva comida' }),
+                React.createElement('input', { ref: 'nuevaComida', type: 'text', onKeyPress: this.handleKeyDown, className: 'form-control', placeholder: 'Agregar nueva comida' }),
                 React.createElement(
                     'span',
                     { className: 'input-group-btn' },

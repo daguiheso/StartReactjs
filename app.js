@@ -40,7 +40,10 @@ var ListaComida = React.createClass({
     },
     add : function () {
         var nuevaComida = this.refs.nuevaComida.value;
-        console.log(nuevaComida)
+        var arr = this.state.comidas;
+        arr.push(nuevaComida);
+        this.setState({comidas: arr})
+        this.refs.nuevaComida.value = '';
     },
     eachItem : function (comida, i) {
         return (
@@ -48,6 +51,10 @@ var ListaComida = React.createClass({
                 {i+1}
             </Comida>
         )
+    },
+    handleKeyDown: function(e){
+        if( e.charCode === 13 )
+            this.add();
     },
     render : function () {
         return (
@@ -57,7 +64,7 @@ var ListaComida = React.createClass({
                     <i>Total : {this.state.comidas.length}</i>
                 </header>
                 <div className="input-group">
-                    <input ref="nuevaComida" type="text" className="form-control" placeholder="Agregar nueva comida"/>
+                    <input ref="nuevaComida" type="text" onKeyPress={this.handleKeyDown} className="form-control" placeholder="Agregar nueva comida"/>
                     <span className="input-group-btn">
                         <div className="btn btn-default btn-success" onClick={this.add}> + </div>
                     </span>
@@ -70,7 +77,4 @@ var ListaComida = React.createClass({
     }
 })
 
-ReactDOM.render(
-    <ListaComida/>,
-    document.getElementById('container')
-);
+ReactDOM.render(<ListaComida/>,document.getElementById('container'));
