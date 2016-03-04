@@ -1,5 +1,6 @@
 var React = require('react');
 var ReactDOM = require ('react-dom');
+var $ = require('jquery');
 
 var Comida = React.createClass({
     getInitialState : function () {        
@@ -71,6 +72,16 @@ var ListaComida = React.createClass({
                 'Mole'
             ]
         }
+    },
+    componentWillMount : function () {
+        var pais;
+        var self = this;
+        $.getJSON('https://restcountries.eu/rest/v1/all', function (data) {
+            for(pais in data) {
+                // console.log(pais, data[pais].name);
+                self.add(data[pais].name);
+            }
+        })
     },
     add : function (comida) {
         var nuevaComida = this.refs.nuevaComida.value;
