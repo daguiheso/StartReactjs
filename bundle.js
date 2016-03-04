@@ -149,6 +149,13 @@ var ListaComida = React.createClass({
             comidas: ['Tacos', 'Paella', 'Ceviche', 'Mole']
         };
     },
+    eachItem: function (comida, i) {
+        return React.createElement(
+            Comida,
+            { key: i, index: i, nombre: comida },
+            i + 1
+        );
+    },
     render: function () {
         return React.createElement(
             'div',
@@ -171,13 +178,7 @@ var ListaComida = React.createClass({
             React.createElement(
                 'div',
                 null,
-                this.state.comidas.map(function (comida, i) {
-                    return React.createElement(
-                        Comida,
-                        { key: i, nombre: comida },
-                        i + 1
-                    );
-                })
+                this.state.comidas.map(this.eachItem)
             )
         );
     }

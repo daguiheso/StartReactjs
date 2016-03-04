@@ -38,6 +38,13 @@ var ListaComida = React.createClass({
             ]
         }
     },
+    eachItem : function (comida, i) {
+        return (
+            <Comida key={i} index={i} nombre={comida}>
+                {i+1}
+            </Comida>
+        )
+    },
     render : function () {
         return (
             <div className="centerBlock">
@@ -47,15 +54,7 @@ var ListaComida = React.createClass({
                 </header>
                 <div>
                     {
-                        this.state.comidas.map(
-                            function(comida, i) {
-                                return (
-                                    <Comida key={i} nombre={comida}>
-                                        {i+1}
-                                    </Comida>
-                                )
-                            }
-                        )
+                        this.state.comidas.map(this.eachItem)
                     }
                 </div>
             </div>
