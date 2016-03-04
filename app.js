@@ -4,16 +4,31 @@ var ReactDOM = require ('react-dom');
 var Comida = React.createClass({
     getInitialState : function () {        
         return {
-            like : Boolean(this.props.like)
+            like : Boolean(this.props.like),
+            editing: false
         }
     },
     handleLike : function () {
-        this.setState({like: !this.state.like})
+        this.setState({like : !this.state.like})
     },
-    remove: function () {
+    edit : function () {
+        this.setState({editing : true});
+    },
+    remove : function () {
         this.props.onRemove(this.props.index)
     },
-    render: function() {
+    cancel : function () {
+        this.setState({editing : false});
+    },
+    showEditingView : function () {
+        return (
+            <div className="comida">
+                <input ref="nuevoNombre" type="text" className="form-control" placeholder="Nuevo nombre..." defaultValue={this.props.nombre}/>
+                <div className="glyphicon glyphicon-remove-circle red" onClick={this.cancel}/>
+            </div>
+        )
+    },
+    showFinalView : function () {
         return (
             <div className="comida">
                 <h1 className="bg-success">{this.props.nombre}</h1>
@@ -26,10 +41,17 @@ var Comida = React.createClass({
                     Like : <b>{String(this.state.like)}</b>
                 </div>
                 <div>
+                    <div className="glyphicon glyphicon-pencil blue" onClick={this.edit}/>
                     <div className="glyphicon glyphicon-trash red" onClick={this.remove}/>
                 </div>
             </div>
         )
+    },
+    render: function() {
+        if (this.state.editing) 
+            return this.showEditingView();
+        else
+            return this.showFinalView();
     }
 });
 

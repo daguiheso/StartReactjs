@@ -100,16 +100,31 @@ var Comida = React.createClass({
 
     getInitialState: function () {
         return {
-            like: Boolean(this.props.like)
+            like: Boolean(this.props.like),
+            editing: false
         };
     },
     handleLike: function () {
         this.setState({ like: !this.state.like });
     },
+    edit: function () {
+        this.setState({ editing: true });
+    },
     remove: function () {
         this.props.onRemove(this.props.index);
     },
-    render: function () {
+    cancel: function () {
+        this.setState({ editing: false });
+    },
+    showEditingView: function () {
+        return React.createElement(
+            'div',
+            { className: 'comida' },
+            React.createElement('input', { ref: 'nuevoNombre', type: 'text', className: 'form-control', placeholder: 'Nuevo nombre...', defaultValue: this.props.nombre }),
+            React.createElement('div', { className: 'glyphicon glyphicon-remove-circle red', onClick: this.cancel })
+        );
+    },
+    showFinalView: function () {
         return React.createElement(
             'div',
             { className: 'comida' },
@@ -143,9 +158,13 @@ var Comida = React.createClass({
             React.createElement(
                 'div',
                 null,
+                React.createElement('div', { className: 'glyphicon glyphicon-pencil blue', onClick: this.edit }),
                 React.createElement('div', { className: 'glyphicon glyphicon-trash red', onClick: this.remove })
             )
         );
+    },
+    render: function () {
+        if (this.state.editing) return this.showEditingView();else return this.showFinalView();
     }
 });
 
