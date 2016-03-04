@@ -182,15 +182,22 @@ var ListaComida = React.createClass({
             comidas: ['Tacos', 'Paella', 'Ceviche', 'Mole']
         };
     },
+    // antes de cargar el componente
     componentWillMount: function () {
         var pais;
         var self = this;
         $.getJSON('https://restcountries.eu/rest/v1/all', function (data) {
             for (pais in data) {
-                // console.log(pais, data[pais].name);
+                console.log(pais, data[pais].name);
                 self.add(data[pais].name);
             }
+            $(self.refs.spinner).removeClass('glyphicon-refresh-animate');
+            $(self.refs.spinner).hide();
         });
+    },
+    // despues de cargar el componente
+    componentDidMount: function () {
+        $(this.refs.spinner).addClass('glyphicon-refresh-animate');
     },
     add: function (comida) {
         var nuevaComida = this.refs.nuevaComida.value;
@@ -239,7 +246,9 @@ var ListaComida = React.createClass({
                     null,
                     'Total : ',
                     this.state.comidas.length
-                )
+                ),
+                React.createElement('br', null),
+                React.createElement('span', { ref: 'spinner', className: 'glyphicon glyphicon-refresh' })
             ),
             React.createElement(
                 'div',

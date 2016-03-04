@@ -73,15 +73,22 @@ var ListaComida = React.createClass({
             ]
         }
     },
+    // antes de cargar el componente
     componentWillMount : function () {
         var pais;
         var self = this;
         $.getJSON('https://restcountries.eu/rest/v1/all', function (data) {
             for(pais in data) {
-                // console.log(pais, data[pais].name);
+                console.log(pais, data[pais].name);
                 self.add(data[pais].name);
             }
+            $(self.refs.spinner).removeClass('glyphicon-refresh-animate');
+            $(self.refs.spinner).hide();
         })
+    },
+    // despues de cargar el componente
+    componentDidMount : function () {
+        $(this.refs.spinner).addClass('glyphicon-refresh-animate');
     },
     add : function (comida) {
         var nuevaComida = this.refs.nuevaComida.value;
@@ -123,6 +130,8 @@ var ListaComida = React.createClass({
                 <header>
                     <h1>Mis comidas favoritas</h1>
                     <i>Total : {this.state.comidas.length}</i>
+                    <br/>
+                    <span ref="spinner" className="glyphicon glyphicon-refresh"></span>
                 </header>
                 <div className="input-group">
                     <input ref="nuevaComida" type="text" onKeyPress={this.handleKeyDown} className="form-control" placeholder="Agregar nueva comida"/>
