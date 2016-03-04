@@ -99,22 +99,17 @@ var Comida = React.createClass({
     displayName: 'Comida',
 
     getInitialState: function () {
-        // return {
-        //     like : true
-        // }
         return {
             like: Boolean(this.props.like)
         };
     },
     handleLike: function () {
-        this.setState({
-            like: !this.state.like
-        });
+        this.setState({ like: !this.state.like });
     },
     render: function () {
         return React.createElement(
             'div',
-            null,
+            { className: 'comida' },
             React.createElement(
                 'h1',
                 { className: 'bg-success' },
@@ -123,7 +118,7 @@ var Comida = React.createClass({
             React.createElement(
                 'p',
                 { className: 'bg-info' },
-                'Comida ',
+                'Posición: ',
                 React.createElement(
                     'i',
                     null,
@@ -131,9 +126,9 @@ var Comida = React.createClass({
                 )
             ),
             React.createElement(
-                'p',
+                'div',
                 null,
-                React.createElement('input', { onChange: this.handleLike, defaultChecked: this.state.like, type: 'checkbox', className: 'glyphicon glyphicon-heart glyphicon-heart-lg' }),
+                React.createElement('input', { onChange: this.handleLike, defaultChecked: this.state.like, type: 'checkbox', className: 'glyphicon glyphicon-heart heart' }),
                 React.createElement('br', null),
                 'Like : ',
                 React.createElement(
@@ -146,25 +141,49 @@ var Comida = React.createClass({
     }
 });
 
-ReactDOM.render(React.createElement(
-    'div',
-    { className: 'centerBlock' },
-    React.createElement(
-        Comida,
-        { nombre: 'Tacos', like: true },
-        'Mexicana'
-    ),
-    React.createElement(
-        Comida,
-        { nombre: 'Paella' },
-        'Española'
-    ),
-    React.createElement(
-        Comida,
-        { nombre: 'Ceviche', like: true },
-        'Peruana'
-    )
-), document.getElementById('container'));
+var ListaComida = React.createClass({
+    displayName: 'ListaComida',
+
+    getInitialState: function () {
+        return {
+            comidas: ['Tacos', 'Paella', 'Ceviche', 'Mole']
+        };
+    },
+    render: function () {
+        return React.createElement(
+            'div',
+            { className: 'centerBlock' },
+            React.createElement(
+                'header',
+                null,
+                React.createElement(
+                    'h1',
+                    null,
+                    'Mis comidas favoritas'
+                ),
+                React.createElement(
+                    'i',
+                    null,
+                    'Total : ',
+                    this.state.comidas.length
+                )
+            ),
+            React.createElement(
+                'div',
+                null,
+                this.state.comidas.map(function (comida, i) {
+                    return React.createElement(
+                        Comida,
+                        { key: i, nombre: comida },
+                        i + 1
+                    );
+                })
+            )
+        );
+    }
+});
+
+ReactDOM.render(React.createElement(ListaComida, null), document.getElementById('container'));
 
 },{"react":159,"react-dom":3}],3:[function(require,module,exports){
 'use strict';
