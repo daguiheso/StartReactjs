@@ -98,9 +98,18 @@ var ReactDOM = require('react-dom');
 var Comida = React.createClass({
     displayName: 'Comida',
 
+    getInitialState: function () {
+        // return {
+        //     like : true
+        // }
+        return {
+            like: Boolean(this.props.like)
+        };
+    },
     handleLike: function () {
-        var nombreComida = this.props.nombre;
-        alert('Comida de mi gusto : ' + nombreComida);
+        this.setState({
+            like: !this.state.like
+        });
     },
     render: function () {
         return React.createElement(
@@ -124,7 +133,14 @@ var Comida = React.createClass({
             React.createElement(
                 'p',
                 null,
-                React.createElement('span', { onClick: this.handleLike, className: 'glyphicon glyphicon-heart glyphicon-heart-lg red' })
+                React.createElement('input', { onChange: this.handleLike, defaultChecked: this.state.like, type: 'checkbox', className: 'glyphicon glyphicon-heart glyphicon-heart-lg' }),
+                React.createElement('br', null),
+                'Like : ',
+                React.createElement(
+                    'b',
+                    null,
+                    String(this.state.like)
+                )
             )
         );
     }
@@ -135,7 +151,7 @@ ReactDOM.render(React.createElement(
     { className: 'centerBlock' },
     React.createElement(
         Comida,
-        { nombre: 'Tacos' },
+        { nombre: 'Tacos', like: true },
         'Mexicana'
     ),
     React.createElement(
@@ -145,7 +161,7 @@ ReactDOM.render(React.createElement(
     ),
     React.createElement(
         Comida,
-        { nombre: 'Ceviche' },
+        { nombre: 'Ceviche', like: true },
         'Peruana'
     )
 ), document.getElementById('container'));

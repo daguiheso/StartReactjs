@@ -32,7 +32,20 @@ h1, p{
     cursor: pointer;
 }
 
-.red{
+input[type=checkbox] {
+	-moz-appearance:none;
+	-webkit-appearance:none;
+	-o-appearance:none;
+	border: none;
+	outline: 0;
+}
+input[type=checkbox]:focus {
+	outline: 0;
+}
+input[type=checkbox]:checked {
 	color: red;
 }
 
+.red{
+	color: red;
+}
