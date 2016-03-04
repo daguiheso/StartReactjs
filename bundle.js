@@ -106,6 +106,9 @@ var Comida = React.createClass({
     handleLike: function () {
         this.setState({ like: !this.state.like });
     },
+    remove: function () {
+        this.props.onRemove(this.props.index);
+    },
     render: function () {
         return React.createElement(
             'div',
@@ -136,6 +139,11 @@ var Comida = React.createClass({
                     null,
                     String(this.state.like)
                 )
+            ),
+            React.createElement(
+                'div',
+                null,
+                React.createElement('div', { className: 'glyphicon glyphicon-trash red', onClick: this.remove })
             )
         );
     }
@@ -159,10 +167,15 @@ var ListaComida = React.createClass({
         this.setState({ comidas: arr });
         this.refs.nuevaComida.value = '';
     },
+    remove: function (i) {
+        var arr = this.state.comidas;
+        arr.splice(i, 1);
+        this.setState({ comidas: arr });
+    },
     eachItem: function (comida, i) {
         return React.createElement(
             Comida,
-            { key: i, index: i, nombre: comida },
+            { key: i, index: i, nombre: comida, onRemove: this.remove },
             i + 1
         );
     },
