@@ -68,8 +68,7 @@ var ListaComida = React.createClass({
             comidas: [
                 'Tacos',
                 'Paella',
-                'Ceviche',
-                'Mole'
+                'Ceviche'
             ]
         }
     },

@@ -179,7 +179,7 @@ var ListaComida = React.createClass({
 
     getInitialState: function () {
         return {
-            comidas: ['Tacos', 'Paella', 'Ceviche', 'Mole']
+            comidas: ['Tacos', 'Paella', 'Ceviche']
         };
     },
     // antes de cargar el componente
