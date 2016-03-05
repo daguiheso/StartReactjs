@@ -182,15 +182,18 @@ var ListaComida = React.createClass({
             comidas: ['Tacos', 'Paella', 'Ceviche']
         };
     },
+    getDefaultProps: function () {
+        return {
+            framework: 'React',
+            tech: 'JavaScrip'
+        };
+    },
     // antes de cargar el componente
     componentWillMount: function () {
         var pais;
         var self = this;
         $.getJSON('https://restcountries.eu/rest/v1/all', function (data) {
-            for (pais in data) {
-                console.log(pais, data[pais].name);
-                self.add(data[pais].name);
-            }
+            for (pais in data) self.add(data[pais].name);
             $(self.refs.spinner).removeClass('glyphicon-refresh-animate');
             $(self.refs.spinner).hide();
         });
@@ -248,7 +251,16 @@ var ListaComida = React.createClass({
                     this.state.comidas.length
                 ),
                 React.createElement('br', null),
-                React.createElement('span', { ref: 'spinner', className: 'glyphicon glyphicon-refresh' })
+                React.createElement('span', { ref: 'spinner', className: 'glyphicon glyphicon-refresh' }),
+                React.createElement('br', null),
+                React.createElement(
+                    'i',
+                    null,
+                    'Heacho en ',
+                    this.props.framework,
+                    ', una libreria de ',
+                    this.props.tech
+                )
             ),
             React.createElement(
                 'div',
